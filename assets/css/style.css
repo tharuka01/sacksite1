@@ -17,7 +17,7 @@ body {
   position: absolute;
   top: 0;
   left: 0;
-  background: linear-gradient(to right, #2c5364, #203a43, #0f2027);
+  background:linear-gradient(to top,rgb(1, 0, 26),rgb(5, 0, 52));
   height: 100%;
   width: 100%;
   display: flex;
@@ -31,7 +31,7 @@ body {
 #svg {
   height: 150px;
   width: 150px;
-  stroke: white;
+  stroke: rgb(255, 255, 255);
   fill-opacity: 0;
   stroke-width: 3px;
   stroke-dasharray: 4500;
@@ -59,4 +59,8 @@ body {
   text-transform: uppercase;
   margin-left: 20px;
   font-weight: bolder;
+}
+.navbar-icon{
+  width: 40px;
+  height: auto;
 }
