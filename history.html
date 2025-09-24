@@ -5,120 +5,137 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>History Timeline</title>
 
-  <!-- Site stylesheet -->
   <link rel="stylesheet" href="assets/css/style.css"/>
 
-  <!-- Optional: Bootstrap + Font Awesome (icons) -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+  <!-- Optional: Bootstrap + Font Awesome -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
   <link rel="shortcut icon" href="assets/img/favicon.ico" type="image/x-icon">
 
   <style>
     /* Theme */
     :root{
-      --bg: #0b0d12;
-      --bg-muted: #0e1117;
-      --surface: rgba(255,255,255,0.06);
-      --surface-2: rgba(255,255,255,0.08);
-      --text: #e8eaed;
-      --text-muted: #b9c1cc;
-      --ring: #8ab4ff;
-      --accent: #5aa2ff;
-      --accent-2: #8b5cf6;
-      --card-radius: 14px;
+      --bg:#0b0d12; --bg-muted:#0e1117;
+      --surface:rgba(255,255,255,.06);
+      --surface-2:rgba(255,255,255,.08);
+      --text:#e8eaed; --text-muted:#b9c1cc;
+      --ring:#8ab4ff; --accent:#5aa2ff; --accent-2:#8b5cf6;
+      --card-radius:14px;
 
       /* Timeline metrics */
-      --tl-year-w: 92px;
-      --tl-line-w: 18px;
-      --tl-dot: 12px;
-      --tl-rule: 3px;
+      --tl-year-w:92px; --tl-line-w:18px; --tl-dot:12px; --tl-rule:3px;
 
-      --shadow-1: 0 6px 20px rgba(0,0,0,0.25);
-      --shadow-2: 0 10px 28px rgba(0,0,0,0.35);
+      --shadow-1:0 6px 16px rgba(0,0,0,.22);
+      --shadow-2:0 10px 22px rgba(0,0,0,.30);
     }
     @media (prefers-color-scheme: light){
       :root{
-        --bg: #f7f9fc;
-        --bg-muted: #f3f6fb;
-        --surface: rgba(255,255,255,0.9);
-        --surface-2: rgba(255,255,255,1);
-        --text: #0f172a;
-        --text-muted: #46536b;
-        --ring: #2962ff;
-        --accent: #2962ff;
-        --accent-2: #7c3aed;
-        --shadow-1: 0 6px 18px rgba(16,24,40,0.08);
-        --shadow-2: 0 10px 26px rgba(16,24,40,0.12);
+        --bg:#f7f9fc; --bg-muted:#f3f6fb;
+        --surface:#ffffffd9; --surface-2:#fff;
+        --text:#0f172a; --text-muted:#46536b;
+        --ring:#2962ff; --accent:#2962ff; --accent-2:#7c3aed;
+        --shadow-1:0 6px 14px rgba(16,24,40,.08);
+        --shadow-2:0 10px 20px rgba(16,24,40,.12);
       }
     }
 
-    html, body { height: 100%; }
+    html,body{height:100%}
     body{
-      margin: 0;
+      margin:0;
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      color: var(--text);
+      color:var(--text);
       background:
-        radial-gradient(1200px 800px at 10% -10%, rgba(90,162,255,0.10), transparent 60%),
-        radial-gradient(1200px 800px at 100% 10%, rgba(139,92,246,0.12), transparent 60%),
+        radial-gradient(1200px 800px at 10% -10%, rgba(90,162,255,.10), transparent 60%),
+        radial-gradient(1200px 800px at 100% 10%, rgba(139,92,246,.12), transparent 60%),
         linear-gradient(to bottom, var(--bg), var(--bg-muted) 40%, var(--bg));
     }
 
-    .page{ padding: 56px 20px 80px; }
-    .page .container{ max-width: 1100px; margin: 0 auto; }
+    .page{padding:56px 20px 80px}
+    .page .container{max-width:1100px;margin:0 auto}
 
     .page h1{
-      margin: 0 0 28px;
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      line-height: 1.05;
-      font-size: clamp(28px, 4vw, 46px);
-      background: linear-gradient(90deg, var(--text) 0%, var(--accent) 40%, var(--accent-2) 100%);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
+      margin:0 0 28px; font-weight:800; letter-spacing:-.02em; line-height:1.05;
+      font-size:clamp(28px,4vw,46px);
+      background:linear-gradient(90deg,var(--text) 0%,var(--accent) 40%,var(--accent-2) 100%);
+      -webkit-background-clip:text;background-clip:text;color:transparent;
     }
-    .subtitle{ color: var(--text-muted); margin-top: -6px; margin-bottom: 32px; font-size: 16px; }
+    .subtitle{color:var(--text-muted);margin-top:-6px;margin-bottom:32px;font-size:16px}
 
     /* Timeline grid */
     .timeline{
-      display: grid;
+      display:grid;
       grid-template-columns: var(--tl-year-w) var(--tl-line-w) 1fr;
-      column-gap: 18px; row-gap: 22px; position: relative;
+      column-gap:18px; row-gap:22px; position:relative;
     }
-    .year{ font-size: 22px; font-weight: 700; color: var(--text); line-height: 1; align-self:start; padding-top: 6px; position: relative; filter: drop-shadow(0 2px 10px rgba(0,0,0,0.35)); text-shadow: 0 1px 0 rgba(0,0,0,0.18); opacity:.92; }
-    .year .year-label{ position:absolute; left:0; top:0; }
-    .line{ position: relative; }
-    .line::before{ content:""; position:absolute; left: calc((var(--tl-line-w) - var(--tl-rule))/2); top:-30px; bottom:-30px; width: var(--tl-rule); background: linear-gradient(180deg, var(--accent), var(--accent-2)); border-radius:2px; box-shadow: 0 0 12px rgba(90,162,255,0.45), 0 0 28px rgba(139,92,246,0.28); opacity:.85; }
-    .line::after{ content:""; position:absolute; left: calc((var(--tl-line-w) - var(--tl-dot))/2); top:6px; width: var(--tl-dot); height: var(--tl-dot); border-radius:50%; background: radial-gradient(circle at 40% 40%, #fff, var(--accent) 45%); box-shadow: 0 0 0 3px rgba(90,162,255,0.18), 0 0 26px rgba(90,162,255,0.55); }
+    .year{font-size:22px;font-weight:700;color:var(--text);line-height:1;align-self:start;padding-top:6px;position:relative;opacity:.92}
+    .year .year-label{position:absolute;left:0;top:0}
 
-    .entry details{ background: var(--surface); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.10); border-radius: var(--card-radius); box-shadow: var(--shadow-1); transition: border-color .18s ease, box-shadow .18s ease, transform .18s ease, background-color .18s ease; padding: 12px 14px; outline: none; }
-    .entry details:hover{ border-color: rgba(138,180,255,0.35); transform: translateY(-1px); box-shadow: var(--shadow-2); }
-    .entry details[open]{ border-color: rgba(138,180,255,0.55); background: var(--surface-2); }
+    .line{position:relative}
+    .line::before{
+      content:""; position:absolute; left:calc((var(--tl-line-w) - var(--tl-rule))/2);
+      top:-30px; bottom:-30px; width:var(--tl-rule);
+      background:linear-gradient(180deg,var(--accent),var(--accent-2)); border-radius:2px;
+      /* lighter glow = cheaper repaints */
+      box-shadow:0 0 10px rgba(90,162,255,.35), 0 0 18px rgba(139,92,246,.20);
+      opacity:.85;
+    }
+    .line::after{
+      content:""; position:absolute; left:calc((var(--tl-line-w) - var(--tl-dot))/2);
+      top:6px; width:var(--tl-dot); height:var(--tl-dot); border-radius:50%;
+      background: radial-gradient(circle at 40% 40%, #fff, var(--accent) 45%);
+      box-shadow:0 0 0 2px rgba(90,162,255,.18), 0 0 18px rgba(90,162,255,.45);
+    }
 
-    .entry summary{ list-style:none; cursor:pointer; display:grid; grid-template-columns: 1fr auto; align-items:center; gap:10px; position:relative; padding:2px 2px 6px; }
-    .entry summary::-webkit-details-marker{ display:none; }
-    .entry summary::marker{ content: ""; }
-    .entry h4{ margin:0; font-size: clamp(18px, 2.2vw, 22px); font-weight:700; color: var(--text); letter-spacing:-0.01em; }
-    .entry details:hover h4{ color:#eaf1ff; text-decoration: underline; text-decoration-color: rgba(138,180,255,0.8); }
-    .chev{ width:20px; height:20px; display:inline-grid; place-items:center; border-radius:6px; opacity:.9; }
-    .entry details[open] .chev i{ transform: rotate(180deg); }
-    .entry details:hover .chev{ background: rgba(138,180,255,0.10); }
+    .entry details{
+      background:var(--surface);
+      /* backdrop-filter is pretty, but expensive. Comment back in if you want. */
+      /* backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); */
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:var(--card-radius);
+      box-shadow:var(--shadow-1);
+      transition:border-color .18s ease, box-shadow .18s ease, transform .18s ease, background-color .18s ease;
+      padding:12px 14px; outline:none;
+    }
+    .entry details:hover{ border-color:rgba(138,180,255,.35); transform:translateY(-1px); box-shadow:var(--shadow-2) }
+    .entry details[open]{ border-color:rgba(138,180,255,.55); background:var(--surface-2) }
 
-    /* Simple show/hide for content (no JS height calculations) */
-    .entry .desc{ display:none; }
-    .entry details[open] .desc{ display:block; }
-    .entry .desc p{ margin:8px 2px 2px; font-size: clamp(16px, 1.9vw, 18px); color: var(--text-muted); }
+    .entry summary{
+      list-style:none; cursor:pointer; display:grid; grid-template-columns:1fr auto; align-items:center; gap:10px; position:relative; padding:2px 2px 6px;
+    }
+    .entry summary::-webkit-details-marker{display:none}
+    .entry summary::marker{content:""}
+    .entry h4{margin:0; font-size:clamp(18px,2.2vw,22px); font-weight:700; color:var(--text); letter-spacing:-.01em}
+    .entry details:hover h4{color:#eaf1ff; text-decoration:underline; text-decoration-color:rgba(138,180,255,.8)}
+    .chev{width:20px;height:20px;display:inline-grid;place-items:center;border-radius:6px;opacity:.9;will-change:transform}
+    .entry details[open] .chev i{transform:rotate(180deg); transition:transform .18s ease}
+    .entry details:hover .chev{background:rgba(138,180,255,.10)}
+
+    /* Smooth show/hide (cheap) */
+    .entry .desc{
+      max-height:0; overflow:hidden; opacity:0;
+      transition:max-height .28s ease, opacity .18s ease;
+    }
+    .entry details[open] .desc{
+      /* big enough for content; adjust if needed */
+      max-height:600px; opacity:1;
+    }
+    .entry .desc p{margin:8px 2px 2px; font-size:clamp(16px,1.9vw,18px); color:var(--text-muted)}
 
     /* Tooltip (only when closed) */
-    .entry summary .tip{ position:absolute; left:0; top: calc(100% + 8px); background:#111; color:#fff; font-size:12px; padding:6px 8px; border-radius:6px; white-space:nowrap; box-shadow:0 6px 16px rgba(0,0,0,0.18); opacity:0; transform: translateY(-6px); pointer-events:none; transition: opacity .16s ease, transform .16s ease; z-index:2; }
-    .entry summary .tip::before{ content:""; position:absolute; left:12px; top:-6px; border:6px solid transparent; border-bottom:none; border-top-color:#111; }
-    .entry details:hover > summary .tip{ opacity:.96; transform: translateY(0); }
-    .entry details[open] > summary .tip{ display:none; }
+    .entry summary .tip{
+      position:absolute; left:0; top:calc(100% + 8px); background:#111; color:#fff; font-size:12px; padding:6px 8px; border-radius:6px; white-space:nowrap;
+      box-shadow:0 6px 16px rgba(0,0,0,.18); opacity:0; transform:translateY(-6px); pointer-events:none; transition:opacity .16s ease, transform .16s ease; z-index:2;
+    }
+    .entry summary .tip::before{content:""; position:absolute; left:12px; top:-6px; border:6px solid transparent; border-bottom:none; border-top-color:#111}
+    .entry details:hover > summary .tip{opacity:.96; transform:translateY(0)}
+    .entry details[open] > summary .tip{display:none}
 
-    .entry summary:focus-visible{ outline: 2px solid var(--ring); outline-offset:3px; border-radius:10px; }
+    .entry summary:focus-visible{outline:2px solid var(--ring); outline-offset:3px; border-radius:10px}
 
-    @media (min-width: 992px){ :root{ --tl-year-w:110px; } .page{ padding-top:64px; } }
-    @media (prefers-reduced-motion: reduce){ *{ transition:none !important; scroll-behavior:auto !important; } }
+    @media (min-width: 992px){ :root{ --tl-year-w:110px } .page{ padding-top:64px } }
+    @media (prefers-reduced-motion: reduce){
+      *{ transition:none !important; scroll-behavior:auto !important; }
+    }
   </style>
 </head>
 <body>
@@ -132,39 +149,38 @@
   </div>
 
   <script>
-    // Single source of truth: records[]. The UI is rendered from this.
     (function(){
+      // Cleaned copy with ASCII apostrophes and proper en dashes.
       const records = [
-        { year: '2003', title: 'Jubilee Building for Primary Section', desc: 'A new Jubilee building was inaugurated for the Primary section, equipped with classrooms and a computer laboratory. This investment in the youngest Antonians reflected the College�?Ts vision for the future.' },
+        { year: '2003', title: 'Jubilee Building for Primary Section', desc: 'A new Jubilee building was inaugurated for the Primary section, equipped with classrooms and a computer laboratory. This investment in the youngest Antonians reflected the College’s vision for the future.' },
         { year: '1994', title: 'Sesquicentennial Celebrations', desc: 'The College celebrated 150 years of existence with grandeur under the leadership of Rev. Fr. Hilarion Fernando OSB. The event honored its heritage of faith, learning, and sporting excellence.' },
-        { year: '1993', title: 'Jack Anderson Pavilion Opened', desc: 'A state-of-the-art pavilion complex was opened in honor of Jack Anderson�?Ts legendary cricketing record. This became a landmark for Antonian cricket and a proud reminder of its illustrious sporting past.' },
-        { year: '1981', title: 'First Big Match Victory Over Trinity', desc: 'St. Anthony�?Ts defeated Trinity College in the annual �?oBig Match�?? for the very first time in its history. This victory was a watershed moment in Antonian cricket, celebrated across the island.' },
+        { year: '1993', title: 'Jack Anderson Pavilion Opened', desc: 'A state-of-the-art pavilion complex was opened in honor of Jack Anderson’s legendary cricketing record. This became a landmark for Antonian cricket and a proud reminder of its illustrious sporting past.' },
+        { year: '1981', title: 'First Big Match Victory Over Trinity', desc: 'St. Anthony’s defeated Trinity College in the annual “Big Match” for the very first time in its history. This victory was a watershed moment in Antonian cricket, celebrated across the island.' },
         { year: '1977', title: 'Handover to the State', desc: 'The College was formally handed over to the government by the Bishop of Kandy. Despite this transition, its Benedictine heritage and traditions continued to shape its educational and cultural spirit.' },
         { year: '1967', title: 'Swimming Pool and Colours Night', desc: 'Rev. Fr. Aidan de Silva OSB spearheaded the construction of a modern swimming pool and classroom facilities. He also launched the annual Colours Night, a tradition celebrating Antonian achievements in sports and extracurricular activities.' },
-        { year: '1961', title: 'Government Takeover Announced', desc: 'The College was listed for government takeover but allowed to continue as a non-fee levying institution. The Old Boys and well-wishers stepped forward to ensure its character and traditions were preserved.' },
-        { year: '1957', title: 'Centenary Hall Opened', desc: 'The Centenary Memorial Hall was opened by Governor General Sir Oliver Goonetilleke. It commemorated a hundred years of the school�?Ts progress and served as a major venue for educational and cultural events.' },
+        { year: '1961', title: 'Government Takeover Announced', desc: 'The College was listed for government takeover but allowed to continue as a non-fee-levying institution. The Old Boys and well-wishers stepped forward to ensure its character and traditions were preserved.' },
+        { year: '1957', title: 'Centenary Hall Opened', desc: 'The Centenary Memorial Hall was opened by Governor General Sir Oliver Goonetilleke. It commemorated a hundred years of the school’s progress and served as a major venue for educational and cultural events.' },
         { year: '1956', title: 'Rugby Introduced', desc: 'The College embraced rugby football, a sport that would become another proud Antonian tradition. Over the years, Antonian rugby players would distinguish themselves both nationally and internationally.' },
-        { year: '1941', title: 'Establishment of St. Sylvester�?Ts College', desc: 'The Kandy branch of the College separated and was established as St. Sylvester�?Ts College. This allowed St. Anthony�?Ts to consolidate its own identity while contributing to the wider spread of Catholic education in the region.' },
+        { year: '1941', title: 'Establishment of St. Sylvester’s College', desc: 'The Kandy branch of the College separated and was established as St. Sylvester’s College. This allowed St. Anthony’s to consolidate its own identity while contributing to the wider spread of Catholic education in the region.' },
         { year: '1935', title: 'Main Buildings Completed', desc: 'Fr. Hyde OSB oversaw the construction of the main classroom blocks and extended the playground. These developments gave the College the facilities needed for its growing population and sporting traditions.' },
-        { year: '1927�?"1928', title: 'Relocation to Katugastota', desc: 'Under Bishop Bede Beeckmeyer OSB, the College purchased the Dunuwille Walauwa and surrounding lands. St. Anthony�?Ts was relocated to Katugastota, providing spacious grounds, modern classrooms, and vast opportunities for expansion.' },
-        { year: '1918', title: 'Jack Anderson�?Ts Historic Innings', desc: 'Jack Anderson scored a monumental 291 runs against St. Thomas�?T College. This innings still stands as the highest individual score in school cricket in Sri Lanka, earning him a permanent place in cricket history.' },
-        { year: '1917', title: 'Official Recognition as Secondary School', desc: 'The Department of Education recognized St. Anthony�?Ts as a fully organized secondary school. This marked its entry into the ranks of leading educational institutions in the island.' },
-        { year: '1910', title: 'Old Boys�?T Association Formed', desc: 'The first Old Boys�?T Association (OBA) meeting was held, with Very Rev. Fr. Bede Beeckmeyer elected as its first President. This created a lifelong link between alumni and the school, ensuring continuous support and loyalty.' },
-        { year: '1907', title: 'The First Trinity�?"Antonion Encounter', desc: 'Cricket, hockey, and football clubs were officially formed. The first historic encounter between St. Anthony�?Ts and Trinity College was played this year, laying the groundwork for one of Sri Lanka�?Ts most enduring school rivalries.' },
-        { year: '1904', title: 'First Inter-School Cricket Match', desc: 'The College played its first inter-school cricket match against Dharmaraja College. St. Anthony�?Ts emerged victorious by 109 runs, sparking the start of a sporting rivalry that energized student life.' },
-        { year: '1903', title: 'Cricket Introduced', desc: 'Fr. Andrew Vanlangenberg OSB introduced cricket, forming the St. Anthony�?Ts College Cricket Club. This was the beginning of a sporting tradition that would eventually produce international players and define Antonian sporting culture.' },
-        { year: '1892', title: 'A New Era of Benedictine Leadership', desc: 'Fr. Hilarian Leitan OSB became Principal, inaugurating an unbroken succession of Benedictine priest-principals. His leadership set the tone for the College�?Ts distinctive Benedictine character and traditions.' },
-        { year: '1887', title: 'Girls�?T School Shifted', desc: 'The Girls�?T School, initially run alongside the boys, was shifted to Katukelle under the management of the Good Shepherd Nuns. This allowed the boys�?T school to focus exclusively on its own expansion and development.' },
-        { year: '1876�?"1879', title: 'Growth Under New Principals', desc: 'Fr. Paul Perera OSB introduced organized boarding facilities, attracting students from outside Kandy. He was succeeded by Fr. Craner, who continued to strengthen the academic and spiritual environment of the College.' },
-        { year: '1870�?"1875', title: 'Benedictines Take Charge', desc: 'After a brief period under the Irish Christian Brothers, the Benedictines assumed administration. Fr. Dom Hildebrand Vanderstraaten OSB and later Fr. D. Paul Perera OSB introduced the boarding system, giving the College a more structured and residential character.' },
+        { year: '1927–1928', title: 'Relocation to Katugastota', desc: 'Under Bishop Bede Beeckmeyer OSB, the College purchased the Dunuwille Walauwa and surrounding lands. St. Anthony’s was relocated to Katugastota, providing spacious grounds, modern classrooms, and vast opportunities for expansion.' },
+        { year: '1918', title: 'Jack Anderson’s Historic Innings', desc: 'Jack Anderson scored a monumental 291 runs against St. Thomas’ College. This innings still stands as the highest individual score in school cricket in Sri Lanka, earning him a permanent place in cricket history.' },
+        { year: '1917', title: 'Official Recognition as Secondary School', desc: 'The Department of Education recognized St. Anthony’s as a fully organized secondary school. This marked its entry into the ranks of leading educational institutions in the island.' },
+        { year: '1910', title: 'Old Boys’ Association Formed', desc: 'The first Old Boys’ Association (OBA) meeting was held, with Very Rev. Fr. Bede Beeckmeyer elected as its first President. This created a lifelong link between alumni and the school, ensuring continuous support and loyalty.' },
+        { year: '1907', title: 'The First Trinity–Antonion Encounter', desc: 'Cricket, hockey, and football clubs were officially formed. The first historic encounter between St. Anthony’s and Trinity College was played this year, laying the groundwork for one of Sri Lanka’s most enduring school rivalries.' },
+        { year: '1904', title: 'First Inter-School Cricket Match', desc: 'The College played its first inter-school cricket match against Dharmaraja College. St. Anthony’s emerged victorious by 109 runs, sparking the start of a sporting rivalry that energized student life.' },
+        { year: '1903', title: 'Cricket Introduced', desc: 'Fr. Andrew Vanlangenberg OSB introduced cricket, forming the St. Anthony’s College Cricket Club. This was the beginning of a sporting tradition that would eventually produce international players and define Antonian sporting culture.' },
+        { year: '1892', title: 'A New Era of Benedictine Leadership', desc: 'Fr. Hilarian Leitan OSB became Principal, inaugurating an unbroken succession of Benedictine priest-principals. His leadership set the tone for the College’s distinctive Benedictine character and traditions.' },
+        { year: '1887', title: 'Girls’ School Shifted', desc: 'The Girls’ School, initially run alongside the boys, was shifted to Katukelle under the management of the Good Shepherd Nuns. This allowed the boys’ school to focus exclusively on its own expansion and development.' },
+        { year: '1876–1879', title: 'Growth Under New Principals', desc: 'Fr. Paul Perera OSB introduced organized boarding facilities, attracting students from outside Kandy. He was succeeded by Fr. Craner, who continued to strengthen the academic and spiritual environment of the College.' },
+        { year: '1870–1875', title: 'Benedictines Take Charge', desc: 'After a brief period under the Irish Christian Brothers, the Benedictines assumed administration. Fr. Dom Hildebrand Vanderstraaten OSB and later Fr. D. Paul Perera OSB introduced the boarding system, giving the College a more structured and residential character.' },
         { year: '1867', title: 'A School of Distinction', desc: 'Under Fr. Joseph Mary Luigi Camilieri, the school grew rapidly in reputation. It was ranked as the second-best English school among all missionary schools in Ceylon, recognized for discipline, academic standards, and growing influence.' },
-        { year: '1854', title: 'Birth of St. Anthony�?Ts College', desc: 'Fr. Felice Zoppi, continuing Bettacchini�?Ts vision, opened both a boys�?T and a girls�?T school within the Cathedral premises. The boys�?T school, entrusted to Mr. Van Twest as its first head teacher, marked the true foundation of St. Anthony�?Ts College.' },
+        { year: '1854', title: 'Birth of St. Anthony’s College', desc: 'Fr. Felice Zoppi, continuing Bettacchini’s vision, opened both a boys’ and a girls’ school within the Cathedral premises. The boys’ school, entrusted to Mr. Van Twest as its first head teacher, marked the true foundation of St. Anthony’s College.' },
         { year: '1843', title: 'First Attempt at a School', desc: 'Fr. Orazio Bettacchini opened a school in Kandy, a pioneering attempt at Catholic education in the region. However, this initiative was short-lived, as his successor later demolished the building.' },
-        { year: '1828', title: 'New Land for a Church', desc: 'Governor Barnes granted new land to the Catholics of Kandy, where the second Catholic church was built. This new place of worship would later become St. Anthony�?Ts Cathedral, anchoring the Catholic community firmly in the city.' },
-        { year: '1820', title: 'First Missionary to Kandy', desc: 'Vincent de Rozairo, the Oratorian superior, built the very first Catholic church in Kandy on the site of today�?Ts Scots Kirk. This humble structure marked the beginning of Catholic presence in the hill capital, laying the foundation for future educational and religious growth.' }
+        { year: '1828', title: 'New Land for a Church', desc: 'Governor Barnes granted new land to the Catholics of Kandy, where the second Catholic church was built. This new place of worship would later become St. Anthony’s Cathedral, anchoring the Catholic community firmly in the city.' },
+        { year: '1820', title: 'First Missionary to Kandy', desc: 'Vincent de Rozairo, the Oratorian superior, built the very first Catholic church in Kandy on the site of today’s Scots Kirk. This humble structure marked the beginning of Catholic presence in the hill capital, laying the foundation for future educational and religious growth.' }
       ];
 
-      // Render entries
       const tl = document.getElementById('timeline');
       tl.innerHTML = records.map(r => `
         <div class="year"><span class="year-label">${r.year}</span></div>
@@ -185,13 +201,10 @@
       const detailsList = Array.from(tl.querySelectorAll('details'));
       detailsList.forEach(d => {
         d.addEventListener('toggle', () => {
-          if (d.open) {
-            detailsList.forEach(o => { if (o !== d) o.open = false; });
-          }
+          if (d.open) detailsList.forEach(o => { if (o !== d) o.open = false; });
         });
       });
     })();
   </script>
 </body>
 </html>
-
