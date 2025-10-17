@@ -69,8 +69,7 @@ body {
     width: 90%;
     position: fixed !important;
     top: 10px;
-    z-index: 3;
-    z-index: 3;
+    z-index: 10;
     margin-top: 20px;
     border-radius: 25px;
     box-shadow:5px 5px 30px #000000;
@@ -286,4 +285,134 @@ footer.footer{
   background: rgba(255, 255, 255, 0.6);
   height: 13rem;
   min-height: 100px;
+}
+
+/* --- Custom Carousel/News Section Styles (Final Alignment Fix) --- */
+
+.latest-news-section {
+background-color: #1a1a1a; /* Dark background for contrast */
+}
+
+/* Custom navigation button styling (reusing Bootstrap icons for a consistent look) */
+.carousel-control-prev-custom,
+.carousel-control-next-custom {
+ background: none;
+border: none;
+ cursor: pointer;
+z-index: 9;
+ padding: 0 10px;
+ opacity: 0.8;
+ transition: opacity 0.15s ease;
+}
+
+.carousel-control-prev-custom:hover,
+.carousel-control-next-custom:hover {
+ opacity: 1;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+ display: inline-block;
+ width: 2rem;
+ height: 2rem;
+background-repeat: no-repeat;
+background-size: 100% 100%;
+}
+
+/* Base64 SVG for white arrow (Previous) */
+.carousel-control-prev-icon {
+background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23fff'%3e%3cpath d='M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z'/%3e%3c/svg%3e");
+}
+
+/* Base64 SVG for white arrow (Next) */
+.carousel-control-next-icon {
+background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23fff'%3e%3cpath d='M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+}
+
+
+/* Main track container for the scrollable effect */
+.news-carousel-track {
+ /* Set a width that leaves room for the buttons */
+ width: calc(100% - 80px);
+
+ /* Allow horizontal scrolling, but hide the scrollbar */
+ overflow-x: scroll;
+display: flex; /* Arrange cards horizontally */
+padding: 20px 0; /* Keep vertical padding */
+
+/* Hide scrollbar in modern browsers */
+-ms-overflow-style: none;/* IE and Edge */
+scrollbar-width: none;/* Firefox */
+}
+.news-carousel-track::-webkit-scrollbar {
+display: none; /* Chrome, Safari, Opera */
+}
+
+/* Individual card wrapper sizing */
+.news-card-wrapper {
+/* Calculation for 3 cards plus 2 gaps of 30px (60px total) */
+flex: 0 0 calc((100% - 60px) / 3);
+/* Use margin for space between cards */
+margin-right: 30px;
+/* The card itself should take 100% of its wrapper's width */
+width: 100% !important;
+}
+
+/* CRITICAL FIX: The last card should NOT have a margin, or it adds extra space */
+.news-carousel-track .news-card-wrapper:last-child {
+margin-right: 0;
+}
+
+
+/* --- Other styles from your input --- */
+/* Shrink arrows so they don't cover cards */
+.carousel-control-prev,
+.carousel-control-next {
+width: 5%; /* default is 15%, shrinking */
+opacity: 0.7;
+top: 50%;
+transform: translateY(-50%);
+z-index: 10;
+}
+
+/* Padding inside carousel to prevent arrows overlapping content */
+.carousel-inner {
+padding-left: 40px;
+padding-right: 40px;
+}
+
+/* Cards max width to prevent overflow */
+.carousel-item .card {
+max-width: 100%; /* or 95% */
+margin: auto;
+}
+
+/* Style arrows nicely */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+background-color: rgba(0,0,0,0.3);
+border-radius: 50%;
+width: 30px;
+height: 30px;
+}
+
+/* Media query for smaller screens (show 1 card per view and hide navigation buttons) */
+@media (max-width: 768px) {
+
+ .news-carousel-track {
+width: 100%; /* Use full width on mobile */
+}
+
+ .news-card-wrapper {
+ flex: 0 0 calc(100% - 20px); /* Show 1 card plus a small gap */
+ margin-right: 20px;
+}
+
+.news-carousel-track .news-card-wrapper:last-child {
+ margin-right: 0;
+ }
+
+.carousel-container-wrapper button {
+display: none; /* Hide buttons on small screens, users can swipe */
+}
 }
